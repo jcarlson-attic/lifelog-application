@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.methodknowledgy</groupId>
+		<artifactId>lifelog</artifactId>
+		<version>0.0.16-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
+	<artifactId>lifelog-commons</artifactId>
+	<name>LifeLog Commons</name>
+	<description>
+		Common components of the LifeLog infrastructure, including the
+		domain model and basic service interfaces.
+	</description>
+	<scm>
+		<developerConnection>scm:svn:http://svn2.assembla.com/svn/lifelog/LifeLog-Application/trunk/commons</developerConnection>
+	</scm>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<repositories>
+		<repository>
+			<id>MK-Maven</id>
+			<name>MethodKnowledgy Maven Repository</name>
+			<url>http://maven.methodknowledgy.com/</url>
+		</repository>
+	</repositories>
+</project>

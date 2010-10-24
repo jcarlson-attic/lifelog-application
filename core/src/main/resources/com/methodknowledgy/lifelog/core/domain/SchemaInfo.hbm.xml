@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.methodknowledgy.lifelog.core.domain">
+	<class name="SchemaInfo" table="schema_info">
+
+		<id name="version">
+			<generator class="identity" />
+		</id>
+
+		<property name="lastModified" type="timestamp">
+			<column name="modified_dt" length="255" not-null="true" default="NOW" />
+		</property>
+
+		<property name="updatedBy">
+			<column name="modified_by" length="255" not-null="true" default="CURRENT_USER" />
+		</property>
+
+		<property name="notes">
+			<column name="notes" not-null="true" default="''" length="1000" />
+		</property>
+
+	</class>
+</hibernate-mapping>

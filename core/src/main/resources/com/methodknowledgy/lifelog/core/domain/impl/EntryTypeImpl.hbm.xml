@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.methodknowledgy.lifelog.commons.domain.impl">
+	<class name="EntryTypeImpl" table="entry_types"
+		proxy="com.methodknowledgy.lifelog.commons.domain.EntryType">
+
+		<id name="id" access="field">
+			<generator class="identity" />
+		</id>
+
+		<timestamp name="lastModifiedDate" column="updated_at" access="field" />
+
+		<property name="creationDate" type="timestamp" insert="false"
+			update="false" access="field">
+			<column name="created_at" not-null="true" default="NOW" />
+		</property>
+
+		<property name="name" not-null="true" length="255" />
+
+		<property name="complex" type="true_false">
+			<column name="complex" not-null="true" default="'F'" />
+		</property>
+
+		<property name="template">
+			<column name="template" length="255" not-null="false"
+				default="NULL" />
+		</property>
+
+		<set name="attributeTypes" table="entry_types_attrib_types" access="field">
+			<key column="entry_type_id" />
+			<many-to-many column="attrib_type_id"
+				class="AttributeTypeImpl" />
+		</set>
+
+		<set name="referringAttributeTypes" inverse="true" cascade="all,delete-orphan"
+			access="field">
+			<key column="entry_type_id" />
+			<one-to-many class="AttributeTypeImpl" />
+		</set>
+
+		<set name="referringEntries" inverse="true" access="field"
+			cascade="all,delete-orphan">
+			<key column="entry_type_id" />
+			<one-to-many class="EntryImpl" />
+		</set>
+
+	</class>
+</hibernate-mapping>

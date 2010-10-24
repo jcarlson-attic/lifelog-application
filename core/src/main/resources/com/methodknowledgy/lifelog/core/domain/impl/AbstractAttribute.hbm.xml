@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.methodknowledgy.lifelog.commons.domain.impl">
+	<class name="AbstractAttribute" table="attribs" abstract="true"
+		proxy="com.methodknowledgy.lifelog.commons.domain.Attribute"
+		dynamic-update="true">
+
+		<id name="id" access="field">
+			<generator class="identity" />
+		</id>
+
+		<timestamp name="lastModifiedDate" column="updated_at" access="field" />
+
+		<property name="creationDate" type="timestamp" insert="false"
+			update="false" access="field">
+			<column name="created_at" not-null="true" default="NOW" />
+		</property>
+
+		<many-to-one name="entry" not-null="true" class="EntryImpl"
+			column="entry_id" />
+
+		<many-to-one name="attributeType" not-null="true"
+			class="AttributeTypeImpl" column="attrib_type_id" />
+
+		<joined-subclass name="ValueAttribute" table="attrib_values"
+			proxy="com.methodknowledgy.lifelog.commons.domain.Attribute"
+			dynamic-update="true">
+			<key column="attrib_id" on-delete="cascade" not-null="true" />
+			<property name="value" column="attrib_value" not-null="true"
+				length="255" />
+		</joined-subclass>
+
+		<joined-subclass name="EntryAttribute" table="entry_values"
+			proxy="com.methodknowledgy.lifelog.commons.domain.Attribute"
+			dynamic-update="true">
+			<key column="attrib_id" on-delete="cascade" not-null="true" />
+			<many-to-one name="entry" not-null="true" class="EntryImpl"
+				column="entry_id" />
+		</joined-subclass>
+
+	</class>
+</hibernate-mapping>

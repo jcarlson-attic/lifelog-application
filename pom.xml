@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.methodknowledgy</groupId>
+		<artifactId>pom-parent</artifactId>
+		<version>1.0.2</version>
+	</parent>
+	<artifactId>lifelog</artifactId>
+	<packaging>pom</packaging>
+	<name>LifeLog Application</name>
+	<version>0.0.16-SNAPSHOT</version>
+	<description>
+		LifeLog application components, including the model
+		implementation (lifelog-commons), and a persistence package
+		(lifelog-core).
+	</description>
+	<modules>
+		<module>commons</module>
+		<module>core</module>
+	</modules>
+	<scm>
+		<developerConnection>scm:svn:http://svn2.assembla.com/svn/lifelog/LifeLog-Application/trunk</developerConnection>
+	</scm>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.methodknowledgy</groupId>
+				<artifactId>lifelog-commons</artifactId>
+				<version>${pom.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.4</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<repositories>
+		<repository>
+			<id>MK-Maven</id>
+			<name>MethodKnowledgy Maven Repository</name>
+			<url>http://maven.methodknowledgy.com/</url>
+		</repository>
+	</repositories>
+</project>

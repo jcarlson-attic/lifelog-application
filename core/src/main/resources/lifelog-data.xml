@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+
+
+	<!-- Boiler plate Hibernate prerequisites -->
+	<bean id="sessionFactory" 
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingLocations"
+			value="classpath*:com/methodknowledgy/lifelog/core/domain/**/*.hbm.xml" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+
+	<!-- Define Test data source -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${db.driver.class}" />
+		<property name="url" value="${db.connectionUrl}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
+	</bean>
+
+
+	<!-- DAO implementations -->
+	<bean id="abstractEntryTypeDao" abstract="true"
+		class="com.methodknowledgy.lifelog.core.dao.impl.EntryTypeHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="entryTypeDao" parent="abstractEntryTypeDao" />
+
+	<bean id="abstractEntryDao" abstract="true"
+		class="com.methodknowledgy.lifelog.core.dao.impl.EntryHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="entryDao" parent="abstractEntryDao" />
+
+	<bean id="abstractAttributeTypeDao" abstract="true"
+		class="com.methodknowledgy.lifelog.core.dao.impl.AttributeTypeHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="attributeTypeDao" parent="abstractAttributeTypeDao" />
+
+	<bean id="abstractAttributeDao" abstract="true"
+		class="com.methodknowledgy.lifelog.core.dao.impl.AttributeHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="attributeDao" parent="abstractAttributeDao" />
+
+</beans>

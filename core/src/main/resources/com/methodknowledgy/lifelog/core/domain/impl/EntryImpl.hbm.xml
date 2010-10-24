@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.methodknowledgy.lifelog.commons.domain.impl">
+	<class name="EntryImpl" table="entries"
+		proxy="com.methodknowledgy.lifelog.commons.domain.Entry">
+
+		<id name="id" access="field">
+			<generator class="identity" />
+		</id>
+
+		<timestamp name="lastModifiedDate" column="updated_at" access="field" />
+
+		<property name="creationDate" type="timestamp" insert="false"
+			update="false" access="field">
+			<column name="created_at" not-null="true" default="NOW" />
+		</property>
+
+		<many-to-one name="entryType" not-null="true"
+			class="EntryTypeImpl" column="entry_type_id" />
+
+		<set name="attributes" inverse="true" cascade="all,delete-orphan" access="field">
+			<key column="entry_id" />
+			<one-to-many class="AbstractAttribute" />
+		</set>
+		
+		<set name="referringAttributes" inverse="true" cascade="delete">
+			<key column="entry_id" />
+			<one-to-many class="EntryAttribute" />
+		</set>
+
+	</class>
+</hibernate-mapping>
